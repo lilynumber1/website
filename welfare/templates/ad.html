@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" class="fl-android">
+<head>
+    <title>超级福利</title>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover'>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="email=no">
+    <link rel="stylesheet" href="./style/1.css" type="text/css">
+    <script id="J_script_attrsniffer" data-remwidth="750" data-remswitch="1" src="./js/attrsniffer.js"></script>
+    <script type="text/javascript" src="./js/tongji.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/goudan-h5-zero-js.js"></script>
+    <script type="text/javascript" src="./js/page-action.js"></script>
+</head>
+<body>
+    <div id="J_zero_container" class="zero-container">
+        <div id="J_swiper_container" class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide J_swiper_slide">
+                    <img src="./img/banner.jpg" style="display:block;" class="w100 J_lazyimg">
+                </div>
+            </div>
+            <!--<div class="swiper-pagination"></div>-->
+        </div>
+        <ul>
+            <li class="menuli"><a href="javascript:void(setContent(1))" class="menu" id="a1">热门</a></li>
+            <li class="menuli"><a href="javascript:void(setContent(2))" class="menu" id="a2">信用卡</a></li>
+        </ul>
+        <div class="zero-box" id="menu1">
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l1')">
+                    <div class="item-img fui-span0">
+                        <img src={$img1} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title1}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title11}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l1">
+                    <p class="tiy"><a href={$link1} target="newwebview" class="fui-span0 btn-go zero" id={$id1} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '1'])">马上领取</a></p>
+                    <p>
+                        <b>活动说明：</b><br>
+                        <hr />
+                        <li><b>{$desc11}</b></li>
+                        <li>{$desc12}</li>
+                        <li>{$desc13}</li>
+                    </p>
+                </div>
+            </div>
+            <!--<div class="group">-->
+                <!--<div class="fui-grid zero-wrapper" onclick="show('l2')">-->
+                    <!--<div class="item-img fui-span0">-->
+                        <!--<img src={$img2} class="w100 J_lazyimg" style="display: block;">-->
+                    <!--</div>-->
+                    <!--<div class="fui-span1">-->
+                        <!--<h3 class="item-title fui-uti-nowrap-line">-->
+                            <!--&lt;!&ndash;&ndash;&gt;-->
+                            <!--{$title2}-->
+                        <!--</h3>-->
+                        <!--<p class="item-sold">-->
+                            <!--<i></i>-->
+                            <!--{$title21}-->
+                        <!--</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div style="display: none" class="desc-wrapper" id="l2">-->
+                    <!--<p class="tiy"><a href={$link2} target="newwebview" class="fui-span0 btn-go zero" id={$id2} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '2'])">马上领取</a></p>-->
+                    <!--<p>-->
+                        <!--<b>活动说明：</b><br>-->
+                    <!--<hr />-->
+                    <!--<li><b>{$desc21}</b></li>-->
+                    <!--<li>{$desc22}</li>-->
+                    <!--<li>{$desc23}</li>-->
+                    <!--</p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l3')">
+                    <div class="item-img fui-span0">
+                        <img src={$img3} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title3}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title31}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l3">
+                    <p class="tiy"><a href={$link3} target="newwebview" class="fui-span0 btn-go zero" id={$id3} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '3'])">马上领取</a></p>
+                    <p>
+                        <b>活动说明：</b><br>
+                    <hr />
+                    <li><b>{$desc31}</b></li>
+                    <li>{$desc32}</li>
+                    <li>{$desc33}</li>
+                    </p>
+                </div>
+            </div>
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l4')">
+                    <div class="item-img fui-span0">
+                        <img src={$img4} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title4}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title41}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l4">
+                    <p class="tiy"><a href={$link4} target="newwebview" class="fui-span0 btn-go zero" id={$id4} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '4'])">马上领取</a></p>
+                    <p>
+                        <b>活动说明：</b><br>
+                    <hr />
+                    <li><b>{$desc41}</b></li>
+                    <li>{$desc42}</li>
+                    <li>{$desc43}</li>
+                    </p>
+                </div>
+            </div>
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l5')">
+                    <div class="item-img fui-span0">
+                        <img src={$img5} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title5}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title51}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l5">
+                    <p class="tiy"><a href={$link5} target="newwebview" class="fui-span0 btn-go zero" id={$id5} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '5'])">马上领取</a></p>
+                    <p>
+                        <b>活动说明：</b><br>
+                    <hr />
+                    <li><b>{$desc51}</b></li>
+                    <li>{$desc52}</li>
+                    <li>{$desc53}</li>
+                    </p>
+                </div>
+            </div>
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l6')">
+                    <div class="item-img fui-span0">
+                        <img src={$img6} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title6}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title61}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l6">
+                    <p class="tiy"><a href={$link6} target="newwebview" class="fui-span0 btn-go zero" id={$id6} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '6'])">马上领取</a></p>
+                </div>
+            </div>
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l7')">
+                    <div class="item-img fui-span0">
+                        <img src={$img7} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title7}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title71}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l7">
+                    <p class="tiy"><a href={$link7} target="newwebview" class="fui-span0 btn-go zero" id={$id7} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '7'])">马上领取</a></p>
+                </div>
+            </div>
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l8')">
+                    <div class="item-img fui-span0">
+                        <img src={$img8} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title8}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title81}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l8">
+                    <p class="tiy"><a href={$link8} target="newwebview" class="fui-span0 btn-go zero" id={$id8} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '8'])">马上领取</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="zero-box" id="menu2" style="display: none">
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l9')">
+                    <div class="item-img fui-span0">
+                        <img src={$img9} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title9}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title91}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l9">
+                    <p class="tiy"><a href={$link9} target="newwebview" class="fui-span0 btn-go zero" id={$id9} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '9'])">马上领取</a></p>
+                </div>
+            </div>
+            <div class="group">
+                <div class="fui-grid zero-wrapper" onclick="show('l10')">
+                    <div class="item-img fui-span0">
+                        <img src={$img10} class="w100 J_lazyimg" style="display: block;">
+                    </div>
+                    <div class="fui-span1">
+                        <h3 class="item-title fui-uti-nowrap-line">
+                            <!---->
+                            {$title10}
+                        </h3>
+                        <p class="item-sold">
+                            <i></i>
+                            {$title101}
+                        </p>
+                    </div>
+                </div>
+                <div style="display: none" class="desc-wrapper" id="l10">
+                    <p class="tiy"><a href={$link10} target="newwebview" class="fui-span0 btn-go zero" id={$id10} onclick="_hmt.push(['_trackEvent', 'welfare', 'click', '10'])">马上领取</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
