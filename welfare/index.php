@@ -1,33 +1,6 @@
 <?php
 include("smarty_inc.php");
 
-$smarty->assign("link1", "http://passport.fanli.com/mark?c=jeek8ymvji");
-$smarty->assign("img1", "./img/1.jpg");
-$smarty->assign("title1", "创意抱枕0元购");
-$smarty->assign("title11", "多重图案可自由选择");
-$smarty->assign("desc11", "1、该活动仅限返利网新用户参加。");
-$smarty->assign("desc12", "2、每个返利网新用户只能参加一次0元购活动。");
-$smarty->assign("desc13", "3、活动需要先下单付款，确认收货后返现金，现金可以提现到支付宝。");
-$smarty->assign("id1","chuangyibaozhen");
-
-$smarty->assign("link2", "http://passport.fanli.com/mark?c=mltm2a2bpa");
-$smarty->assign("img2", "./img/2.jpg");
-$smarty->assign("title2", "青春版保温杯0元购");
-$smarty->assign("title21", "可保温保冷，人手必备");
-$smarty->assign("desc21", "1、该活动仅限返利网新用户参加。");
-$smarty->assign("desc22", "2、每个返利网新用户只能参加一次0元购活动。");
-$smarty->assign("desc23", "3、活动需要先下单付款，确认收货后返现金，现金可以提现到支付宝。");
-$smarty->assign("id2","qingchunbaowenbei");
-
-$smarty->assign("link3", "http://passport.fanli.com/mark?c=hc1f1p0sgk");
-$smarty->assign("img3", "./img/3.jpg");
-$smarty->assign("title3", "星空保温杯0元购");
-$smarty->assign("title31", "极具吸引力的颜值，无法抗拒");
-$smarty->assign("desc31", "1、该活动仅限返利网新用户参加。");
-$smarty->assign("desc32", "2、每个返利网新用户只能参加一次0元购活动。");
-$smarty->assign("desc33", "3、活动需要先下单付款，确认收货后返现金，现金可以提现到支付宝。");
-$smarty->assign("id3","xingkongbaowenbei");
-
 $smarty->assign("link4", "http://ah.189.cn/iphone/ext/lmwkfanliwap/index.html?DevCode=AH00F90005/Y34000099437/001");
 $smarty->assign("img4", "./img/4.jpg");
 $smarty->assign("title4", "前2个月免费使用");
