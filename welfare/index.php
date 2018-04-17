@@ -50,7 +50,7 @@ $smarty->assign("title101", "发卡成功奖励20元话费");
 $smarty->assign("id10","minshengxinyongka");
 
 if($_GET["from"]){
-    echo $_GET["from"];
+    $smarty->display("log.html");
 }else{
     $smarty->display("ad.html");
 }
