@@ -49,4 +49,8 @@ $smarty->assign("title10", "超高额度快速发卡");
 $smarty->assign("title101", "发卡成功奖励20元话费");
 $smarty->assign("id10","minshengxinyongka");
 
-$smarty->display("ad.html");
+if($_GET["from"]){
+    echo $_GET["from"];
+}else{
+    $smarty->display("ad.html");
+}
