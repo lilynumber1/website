@@ -50,7 +50,69 @@ $smarty->assign("title101", "发卡成功奖励20元话费");
 $smarty->assign("id10","minshengxinyongka");
 
 if($_GET["from"]){
-    $smarty->display("log.html");
+//    $smarty->display("log.html");
+    $qudao = $_GET["from"] . "";
+    update_data($qudao);
+//    echo "callbackFunction('logsucc')";
 }else{
     $smarty->display("ad.html");
+}
+
+function update_data($fromname){
+    $servername = "qdm11426228.my3w.com";
+    $username = "qdm11426228";
+    $password = "lily20150610";
+    $dbname = "qdm11426228_db";
+
+// 创建连接
+    $conn = new mysqli($servername, $username, $password, $dbname);
+// 检测连接
+    if ($conn->connect_error) {
+        die("连接失败: " . $conn->connect_error);
+    }
+
+    $log_str = "";
+    $tablename = "tb_" . date("Y_m_d");
+
+// 使用 sql 创建数据表
+    $sql = "CREATE TABLE IF NOT EXISTS " . $tablename . " (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, qudaoname VARCHAR(30) NOT NULL,cnt INT(16) UNSIGNED)";
+
+    if ($conn->query($sql) === TRUE) {
+        $log_str = $log_str . " Table " . $tablename . " created successfully ";
+
+        $sql1 = "SELECT id, qudaoname, cnt FROM " . $tablename;
+        $result = $conn->query($sql1);
+        $count = -1;
+        if ($result->num_rows > 0) {
+            // 输出数据
+            while($row = $result->fetch_assoc()) {
+                $log_str = $log_str . " 查询数据：id: " . $row["id"] . " - Name: " . $row["qudaoname"] . " " . $row["cnt"] . "<br>";
+                if($fromname == $row["qudaoname"]){
+                    $count = $row["cnt"];
+                }
+            }
+        }
+        if($count == -1){
+            $sql2 = "INSERT INTO " . $tablename . " (qudaoname, cnt) VALUES ('$fromname', 1)";
+
+            if ($conn->query($sql2) === TRUE) {
+                $log_str = $log_str . " 新记录插入成功 ";
+            } else {
+                $log_str = $log_str . " Error: " . $sql2 . "<br>" . $conn->error;
+            }
+        }else{
+            $sql2 = "UPDATE " . $tablename . " SET cnt=" . ($count+1) . " WHERE qudaoname='$fromname'";
+            if ($conn->query($sql2) === TRUE) {
+                $log_str = $log_str . " 数据更新成功 ";
+            } else {
+                $log_str = $log_str . " Error: " . $sql2 . "<br>" . $conn->error;
+            }
+        }
+
+    } else {
+        $log_str = $log_str . "创建数据表错误: " . $conn->error;
+    }
+
+    echo "callbackFunction('".$log_str."')";
+    $conn->close();
 }
