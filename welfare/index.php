@@ -49,16 +49,20 @@ $smarty->assign("title10", "超高额度快速发卡");
 $smarty->assign("title101", "发卡成功奖励20元话费");
 $smarty->assign("id10","minshengxinyongka");
 
-if($_GET["from"]){
+if($_GET["action"]){
 //    $smarty->display("log.html");
-    $qudao = $_GET["from"] . "";
-    update_data($qudao);
+    if($_GET["action"] == "buySucc"){
+        $qudao = $_GET["param"] . "";
+        $url = $_GET["param2"] . "";
+        update_data($qudao, $url);
+    }
+
 //    echo "callbackFunction('logsucc')";
 }else{
     $smarty->display("ad.html");
 }
 
-function update_data($fromname){
+function update_data($fromname, $url){
     $servername = "qdm11426228.my3w.com";
     $username = "qdm11426228";
     $password = "lily20150610";
@@ -72,42 +76,45 @@ function update_data($fromname){
     }
 
     $log_str = "";
-    $tablename = "tb_" . date("Y_m_d");
+    $tablename = "detail_tb_" . date("Y_m_d");
 
 // 使用 sql 创建数据表
-    $sql = "CREATE TABLE IF NOT EXISTS " . $tablename . " (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, qudaoname VARCHAR(30) NOT NULL,cnt INT(16) UNSIGNED)";
+    $sql = "CREATE TABLE IF NOT EXISTS " . $tablename . " (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, qudaoname VARCHAR(30) NOT NULL,timeSecond INT(32) UNSIGNED,timeStr VARCHAR(30) NOT NULL, cltip VARCHAR(30) NOT NULL, cburl VARCHAR(50) NOT NULL )";
 
     if ($conn->query($sql) === TRUE) {
         $log_str = $log_str . " Table " . $tablename . " created successfully ";
 
-        $sql1 = "SELECT id, qudaoname, cnt FROM " . $tablename;
+        $sql1 = "SELECT * FROM " . $tablename . " WHERE cburl='".$url."'";
         $result = $conn->query($sql1);
         $count = -1;
         if ($result->num_rows > 0) {
             // 输出数据
-            while($row = $result->fetch_assoc()) {
-                $log_str = $log_str . " 查询数据：id: " . $row["id"] . " - Name: " . $row["qudaoname"] . " " . $row["cnt"] . "<br>";
-                if($fromname == $row["qudaoname"]){
-                    $count = $row["cnt"];
-                }
-            }
+//            while($row = $result->fetch_assoc()) {
+//                $log_str = $log_str . " 查询数据：cburl: " . $row["cburl"];
+//                if($url == $row["cburl"]){
+                    $count = 1;
+//                }
+//            }
         }
         if($count == -1){
-            $sql2 = "INSERT INTO " . $tablename . " (qudaoname, cnt) VALUES ('$fromname', 1)";
-
+            $t=time();
+            $d=date("Y-m-d H:i:s",$t);
+            $clientip = getRealIp();
+            $sql2 = "INSERT INTO " . $tablename . " (qudaoname, timeSecond, timeStr,cltip,cburl) VALUES ('$fromname' , '$t' , '$d','$clientip','$url')";
             if ($conn->query($sql2) === TRUE) {
                 $log_str = $log_str . " 新记录插入成功 ";
             } else {
                 $log_str = $log_str . " Error: " . $sql2 . "<br>" . $conn->error;
             }
-        }else{
-            $sql2 = "UPDATE " . $tablename . " SET cnt=" . ($count+1) . " WHERE qudaoname='$fromname'";
-            if ($conn->query($sql2) === TRUE) {
-                $log_str = $log_str . " 数据更新成功 ";
-            } else {
-                $log_str = $log_str . " Error: " . $sql2 . "<br>" . $conn->error;
-            }
         }
+//        else{
+//            $sql2 = "UPDATE " . $tablename . " SET cnt=" . ($count+1) . " WHERE qudaoname='$fromname'";
+//            if ($conn->query($sql2) === TRUE) {
+//                $log_str = $log_str . " 数据更新成功 ";
+//            } else {
+//                $log_str = $log_str . " Error: " . $sql2 . "<br>" . $conn->error;
+//            }
+//        }
 
     } else {
         $log_str = $log_str . "创建数据表错误: " . $conn->error;
@@ -115,4 +122,23 @@ function update_data($fromname){
 
     echo "callbackFunction('".$log_str."')";
     $conn->close();
+}
+
+function getRealIp()
+{
+    $ip=false;
+    if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+        $ip = $_SERVER["HTTP_CLIENT_IP"];
+    }
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
+        if ($ip) { array_unshift($ips, $ip); $ip = FALSE; }
+        for ($i = 0; $i < count($ips); $i++) {
+            if (!eregi ("^(10│172.16│192.168).", $ips[$i])) {
+                $ip = $ips[$i];
+                break;
+            }
+        }
+    }
+    return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
 }
