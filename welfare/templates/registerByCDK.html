@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>0元领</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="email=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="apple-touch-icon-precomposed" href="./img/zero/icon-spirit1.alpha.png">
+    <link rel='stylesheet' href='./style/webapp-invite-login-css.css'>
+</head>
+<body>
+    <noscript>Your browser does not support JavaScript!</noscript>
+    <script type="text/javascript">
+        function verifyCDK() {
+            var ele = document.getElementById("cdk");
+            var code = ele.value;
+            if(code){
+                var path = "http://lilynumber1.com/welfare/cdk.php?";
+                var form = document.createElement("form");
+                form.action = path;
+                form.method = "GET";
+
+                input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "cdk";
+                input.value = code;
+
+                // append key-value to form
+                form.appendChild(input);
+
+                // send post request
+                document.body.appendChild(form);
+                form.submit();
+
+                // remove form from document
+                document.body.removeChild(form);
+            }else{
+                alert("请输入兑换码！");
+            }
+        }
+    </script>
+    <div class="ivt-wrap ivt13414 ">
+        <section class="login-hd color-red J-login-content">
+            <img class="w100" src="./img/banner2.jpg" alt="0元好物任意领" />
+        </section>
+        <section class="ivt-bd J-login-content" >
+            <div class="fui-form">
+                <div class="fui-form-row">
+                    <div class="fui-form-item">
+                        <div class="fui-form-label">
+                            <i class="icon icon-redeem"></i>
+                        </div>
+                        <input type="text" placeholder={$placeTxt} class="fui-input border-bottom J-redeem-num" id="cdk">
+                    </div>
+                </div>
+                <div class="fui-form-text">
+                <input type="button" class="fui-btn fui-btn-full fui-btn-l fui-btn-green btn-next J-btn-next" value="立即兑换" onclick="verifyCDK()">
+            </div>
+            </div>
+        </section>
+</body>
+</html>
