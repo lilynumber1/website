@@ -6,7 +6,7 @@ if($_GET["cdk"]){
     $is_right = verifyCode($_GET["cdk"]);
 
     if($is_right){
-        header("Location: https://m.51nafuli.com/index.jsp");
+        header("Location: http://m.51nafuli.com/col.jsp?id=116");
     }else{
         $smarty->assign("placeTxt", "错误的兑换码！");
         $smarty->display("registerByCDK.html");
