@@ -18,6 +18,10 @@
         function verifyCDK() {
             var ele = document.getElementById("cdk");
             var code = ele.value;
+
+            var ele2 = document.getElementById("qudao");
+            var qudao = ele2.innerText;
+
             if(code){
                 var path = "http://lilynumber1.com/welfare/cdk.php?";
                 var form = document.createElement("form");
@@ -29,8 +33,14 @@
                 input.name = "cdk";
                 input.value = code;
 
+                input2 = document.createElement("input");
+                input2.type = "hidden";
+                input2.name = "qudao";
+                input2.value = qudao;
+
                 // append key-value to form
                 form.appendChild(input);
+                form.appendChild(input2);
 
                 // send post request
                 document.body.appendChild(form);
@@ -62,5 +72,6 @@
             </div>
             </div>
         </section>
+        <div style="display: none" id="qudao">{$qudaoName}</div>
 </body>
 </html>

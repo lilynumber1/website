@@ -4,10 +4,15 @@ include("smarty_inc.php");
 if($_GET["cdk"]){
     //验证兑换码
     $is_right = verifyCode($_GET["cdk"]);
-
+    $from = $_GET["qudao"]."";
     if($is_right){
-        header("Location: http://m.51nafuli.com/col.jsp?id=116");
+        if($from == "jindong"){
+            header("Location: http://m.51nafuli.com/col.jsp?id=116");
+        }else if($from == "huazhu"){
+            header("Location: http://m.51nafuli.com/col.jsp?id=121");
+        }
     }else{
+        $smarty->assign("qudaoName",$from);
         $smarty->assign("placeTxt", "错误的兑换码！");
         $smarty->display("registerByCDK.html");
     }

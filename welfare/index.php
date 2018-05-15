@@ -9,6 +9,13 @@ if($_GET["action"]){
     }else if($_GET["action"] == "generate"){
         $smarty->display("generateCDK.html");
     }else if($_GET["action"] == "verify"){
+        if($_GET["param"]){
+            $qudao2 = $_GET["param"] . "";
+        }else{
+            $qudao2 = "jindong";
+        }
+
+        $smarty->assign("qudaoName",$qudao2);
         $smarty->assign("placeTxt", "兑换码");
         $smarty->display("registerByCDK.html");
     }
