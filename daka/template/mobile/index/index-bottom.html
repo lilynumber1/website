@@ -1,0 +1,205 @@
+<style>
+.todayStar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+   /*  padding-bottom: 1.75rem; */
+}
+.todayStar .flexbox {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    margin-top: 1.375rem;
+    overflow: hidden;
+    padding: 0 .625rem;
+    box-sizing: border-box;
+}
+.todayStar .imgbox {
+    width: 3.4375rem;
+    height: 3.4375rem;
+    border-radius: 50%;
+    background: url({MODULE_URL}static/img/headerimg.png) 0 0 no-repeat #EEE;
+    background-size: 100% auto;
+    margin: 0 auto;
+}
+.todayStar .name {
+    font-size: .75rem;
+    line-height: 1.03125rem;
+    color: #666;
+    margin-top: .3125rem;
+    height: 1.03125rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.todayStar .time {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: #FF801A;
+    margin-top: .0625rem;
+    font-weight: 500;
+}
+.todayStar .label {
+    width: 5.0625rem;
+    height: 1.8125rem;
+    margin: 0 auto;
+    margin-top: -1.25rem;
+    font-size: .6875rem;
+    padding-top: .5rem;
+    line-height: 1.25rem;
+    padding-right: .625rem;
+    box-sizing: border-box;
+    color: #FFF;
+    font-weight: 500;
+    text-align: right;
+}
+.todayStar .label1 {
+    width: 5.0625rem;
+    height: 1.8125rem;
+    background: url({MODULE_URL}static/img/label1.png) 0 0 no-repeat;
+    background-size: contain;
+}
+.todayStar .label3 {
+    width: 5.0625rem;
+    height: 1.8125rem;
+    background: url({MODULE_URL}static/img/label3.png) 0 0 no-repeat;
+    background-size: contain;
+}
+</style>
+
+<script type="text/x-template" id='bottom'>
+    <div>
+        
+        <index-top></index-top>
+
+        <div v-if="star" class="todayStar">
+            <div v-if="star.zaoqi" class="flexbox">
+                <p class="imgbox" :style="'background: url('+star.zaoqi.fans.headimgurl+') 0 0 no-repeat; background-size:cover;'"></p>
+                <p class="label label1">早起之星</p>
+                <p class="name">{{star.zaoqi.fans.nickname}}</p>
+                <p class="time">{{star.zaoqi.checked_time}}打卡</p>
+            </div>
+            <div v-if="star.lianxu" class="flexbox">
+                <p class="imgbox" :style="'background: url('+star.lianxu.fans.headimgurl+') 0 0 no-repeat; background-size:cover;'"></p>
+                <p class="label label3">毅力之星</p>
+                <p class="name">{{star.lianxu.fans.nickname}}</p>
+                <p class="time">连续{{star.lianxu.lianxu}}次</p>
+            </div>
+        </div>
+        {if $config['ad_imgurl']}
+        <div style="padding:15px;" class='ad'>
+            {if $config['ad_url']}
+            <a href="{$config['ad_url']}"><img style="width:100%" src="{$config['ad_imgurl']}"></a>
+            {else}
+            <a><img style="width:100%" src="{$config['ad_imgurl']}"></a>
+            {/if}
+        </div>
+        {/if}
+        
+        <div v-if="dakalist.length>0" class="weui-panel weui-panel_access">
+            <div class="weui-panel__hd">打卡用户列表</div>
+            <div class="weui-panel__bd">
+                <template v-for="item in dakalist">
+                    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img style="border-radius:100%;" class="weui-media-box__thumb" :src="item.headimgurl" alt="">
+                        </div>
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">{{item.nickname}}</h4>
+                            <p class="weui-media-box__desc">
+                                {{item.checked_time?'打卡时间:'+item.checked_time:''}}<br>
+                                已连续打卡<span style='color:#1cc721'>{{item.lianxu}}</span>天 累计奖励金<span style='color:#1cc721'>{{item.allmoney}}</span>元
+                            </p>
+                        </div>
+                    </a>
+                </template>
+            </div>
+            <div v-if="showmore" class="weui-panel__ft">
+                <a @click="getmore" class="weui-cell weui-cell_access weui-cell_link">
+                    <div class="weui-cell__bd">查看更多</div>
+                    <span class="weui-cell__ft"></span>
+                </a>    
+            </div>
+        </div>
+
+        
+
+    </div>
+</script>
+<?php if($isDay){ ?>
+{template 'index/index-top2'}
+<?php }else{ ?>
+{template 'index/index-top3'}
+<?php } ?>
+<script>
+    var indexBottom = Vue.component('index-bottom',{
+        template: '#bottom',
+        data: function () {
+            return {
+                msg: 'hello',
+                dakalist: [],
+                page: 1,
+                showmore: false,
+                star:[]
+            }
+        },
+        created: function () {
+            this.init();
+        },
+        beforeDestroy: function () {
+        },
+        computed: {
+        },
+        methods: {
+            init: function () {
+                this.getmore();
+                this.getstar();
+            },
+            getstar: function () {
+                var self = this;
+                http({
+                    url: baseUrl + 'getstar'
+                }).then(function(res){
+                    res = res.data;
+                    if(res.ret==0) {
+                        self.star = res.data;
+                    }
+                })
+            },
+            getmore: function () {
+                var self = this;
+                http({
+                    url: baseUrl + 'dakalist&page='+self.page
+                }).then(function(res){
+                    res = res.data;
+                    if(res.ret==0) {
+                        if(res.data.length>=10) {
+                            self.showmore = true;
+                        }else{
+                            self.showmore = false;
+                        }
+                        for(var i=0;i< res.data.length;i++) {
+                            self.dakalist.push(res.data[i]);
+                        }
+                        self.page++;
+                    }else{
+                        self.showmore = false;
+                    }
+                })
+            }
+        }
+    })
+</script>
+<style>
+    .weui-media-box__title{
+        overflow: visible;
+        font-size: 14px;
+    }                                
+</style>

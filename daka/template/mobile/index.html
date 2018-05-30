@@ -1,0 +1,113 @@
+{template 'header'}
+{if $config['notice']}
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<style>
+.notice{
+display:inline-block;
+white-space:nowrap;
+position:relative;
+font-size:13px;
+
+color:#f76a24;
+}
+.weui-cell_access .weui-cell__ft:after{
+    content:none;
+}
+</style>
+<div id="notice" style="margin-top:0;" class="weui-cells">
+    <div style="background: #fefcec;"  class="weui-cell weui-cell_access">
+        <div class="weui-cell__hd">
+            <i class="iconfont icon-noticefill" style="width:20px;margin-right:5px;display:block;color:#1aad19;font-size:20px;"></i>
+        </div>
+        <div style="overflow:hidden;" class="weui-cell__bd notice_wrap">
+        <span onclick="showNotice()" class="notice">
+            {php echo $config['notice']}
+        </span>
+        </div>
+        <div class="weui-cell__ft">
+            <i onclick="closeNotice()" class="iconfont icon-close" style="display:block;font-size:20px;margin-right:-20px;"></i>
+        </div>
+    </div>
+</div>
+<script>
+    var noticewrap = $('.notice_wrap').width();
+    var notice = $('.notice').width();
+    var maxright = notice - noticewrap;
+    function beginNotice () {
+        var n = $('.notice');
+        var right = n.css("right");
+        right = parseInt(right);
+        var right = right<maxright?(right+5):0;
+        n.css("right",right+'px');
+        setTimeout(beginNotice,150);
+    }
+    beginNotice();
+    function showNotice () {
+        weui.alert('{php echo $config["notice"]}');
+    }
+    function closeNotice () {
+        $('#notice').hide();
+    }
+</script>
+{/if}
+<div id="app" style="padding-bottom:53px;">
+       
+    <keep-alive>
+        <router-view v-if="$route.meta.keepAlive">
+        </router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive">
+    </router-view>
+    {if $config['menu']}
+    <div style="position:fixed;bottom:0;" class="weui-tabbar">
+        {loop $config['menu'] $item}
+        <a {php echo $item['url']?"href='$item[url]'":''} class="weui-tabbar__item">
+            <img src="{php echo $_W['attachurl'].$item['imgurl']}" alt="" class="weui-tabbar__icon">
+            <p style="margin-bottom:0;" class="weui-tabbar__label">{$item['text']}</p>
+        </a>
+        {/loop}
+    </div>
+    {/if}
+</div>
+{template 'footer'}
+<script>
+    Vue.config.silent = true;
+    var baseUrl = '{php echo $this->createMobileUrl("api")}'+'&action=';
+    var newBaseUrl = '{php echo $this->createMobileUrl("apinew")}'+'&action=';
+    var http = axios.create({
+        transformRequest: function (data) {
+            window.layerIndex = layer.open({type: 2});
+            return JSON.stringify(data);
+        },
+        transformResponse: function (data) {
+            layer.close(window.layerIndex);
+            return JSON.parse(data);
+        }
+    })
+</script>
+{template 'index/index-bottom'}
+{template 'lianxu/index'}
+{template 'my/index'}
+{template 'my/atm'}
+{template 'my/refer'}
+{template 'paihang/index'} 
+{template 'warn/warn'} 
+<script>
+    var routes = [
+        { path: '/', component: indexBottom,meta: {keepAlive: false}},
+        { path: '/lianxu', component: lianxuIndex,meta: {keepAlive: false}},
+        { path: '/my', component: myIndex,meta: {keepAlive: false}},
+        { path: '/atm', component: myAtm,meta: {keepAlive: false}},
+        { path: '/refer', component: myRefer,meta: {keepAlive: false}},
+        { path: '/paihang', component: paihang,meta: {keepAlive: false}},
+        { path: '/warn', component: warn,meta: {keepAlive: false}},
+        { path: '*', component: indexBottom,meta: {keepAlive: true}},
+    ];
+    var router = new VueRouter({
+        routes:routes
+    });
+    var app = new Vue({
+        el: '#app',
+        router:router
+    });
+</script>

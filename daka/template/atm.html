@@ -1,0 +1,99 @@
+{template 'webheader'}
+{template 'common/header'}
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="{php echo !isset($_GPC['status'])?'active':''}">
+        <a href="{php echo $this->createWebUrl('atm')}">全部提现</a>
+    </li>
+        <li role="presentation" class="{php echo $_GPC['status']==='0'?'active':''}">
+        <a href="{php echo $this->createWebUrl('atm',array('status'=>'0'))}">待处理</a>
+    </li> 
+    <li role="presentation" class="{php echo $_GPC['status']=='1'?'active':''}">
+        <a href="{php echo $this->createWebUrl('atm',array('status'=>'1'))}">已处理</a>
+    </li>
+    <li role="presentation" class="{php echo $_GPC['do']=='paylog'?'active':''}">
+        <a href="{php echo $this->createWebUrl('paylog',array('status'=>'1'))}">退款</a>
+    </li>
+</ul>
+<div class="panel panel-default">
+    <div class="panel-body table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>头像</th>
+                    <th>UID</th>
+                    <th>OPENID</th>
+                    <th>昵称</th>
+                    <th>创建时间</th>
+                    <th>姓名</th>
+                    <th>金额</th>
+                    <th>状态</th>
+                    <th>打款时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $item}
+                <tr>
+                    <th scope="row">{$item['id']}</th>
+                    <td><img src="{$item['fansinfo']['headimgurl']}" width="80" height="80"/></td>
+                    <td>{$item['fansinfo']['uid']}</td>
+                    <td>{$item['fansinfo']['openid']}</td>
+                    <td>{$item['fansinfo']['nickname']}</td>
+                    <td>{$item['create_time']}</td>
+                    <td>{$item['name']}</td>
+                    <td>{$item['money']}</td>
+                    <td>{php echo $item['status']?'已打款':'未打款';}</td>
+                    <td>{$item['checked_time']}</td>
+                    <td>
+                        {if $item['status']==0}
+                        <a onclick="doatm('{$item[id]}')" style="margin:5px;" class="btn btn-danger">打款</a>
+                        {/if}
+
+                        <a onclick="deleteatm('{$item[id]}')" style="margin:5px;" class="btn btn-danger">删除</a>
+                    </td>
+                </tr>
+                {/loop}
+            </tbody>
+        </table>
+    </div>
+    <div class="pull-right">{$pager}</div>
+</div>
+<script>
+    function doatm (id) {
+        var url = window.location.href+'&action=atm&id='+id;
+        var confirm = weui.confirm('确定打款吗?',function(){
+            $.ajax({
+                url:url,
+                dataType:'json'
+            }).then(function(res){
+                confirm.hide(function(){
+                    weui.alert(res.message,function(){
+                        location.reload();
+                    });
+                })
+            });
+            return false;
+        })
+    }
+
+    function deleteatm (id) {
+        var url = window.location.href+'&action=delete&id='+id;
+        var confirm = weui.confirm('确定删除吗?',function(){
+            $.ajax({
+                url:url,
+                dataType:'json'
+            }).then(function(res){
+                confirm.hide(function(){
+                    weui.alert(res.message,function(){
+                        location.reload();
+                    });
+                })
+            });
+            return false;
+        })
+    }
+</script>
+
+
+{template 'common/footer'}

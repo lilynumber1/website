@@ -1,0 +1,64 @@
+{template 'webheader'}{template 'common/header'}
+<style>
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+        vertical-align: middle;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-body table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>头像</th>
+                    <th>信息</th>
+                    <th>支付信息</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $item}
+                <tr>
+                    <td><img src="{$item['fansinfo']['headimgurl']}" width="60" height="60"/></td>
+                    <td>
+                        <span style="display:inline-block;margin:5px 0;" class="label label-info">{$item['fansinfo']['nickname']}</span><br>
+                        <span style="display:inline-block;margin:5px 0;" class="label label-info">OPENID:{$item['fansinfo']['openid']}</span>
+                    </td>
+                    <td>
+                        <span style="display:inline-block;margin:5px 0;" class="label label-info">金额:{$item['pay_money']}</span><br>
+                        <span style="display:inline-block;margin:5px 0;" class="label label-info">时间:{$item['create_time']}</span><br>
+                        <!-- <span style="display:inline-block;margin:5px 0;" class="label label-info">方式:{$item['paytype']}</span>
+                        <span style="display:inline-block;margin:5px 0;" class="label label-info">类型:{$item['type']}</span> -->
+                    </td>
+                    <td>
+                        {if $item['status']}
+                            <span style="display:inline-block;margin:5px 0;" class="label label-success">已退款</span>
+                        {else}
+                            <a data-id="{$item['id']}" type="button" class="btn btn-danger btn-sm btn-tuikuan">退款</a>
+                        {/if}
+                        
+                    </td>
+                </tr>
+                {/loop}
+            </tbody>
+        </table>
+    </div>
+    <div class="pull-right">{$pager}</div>
+</div>
+<script>
+    $('.btn-tuikuan').on('click',function(){
+        var id = $(this).attr('data-id');
+        var url = '{php echo $this->createWebUrl("paylog")}'+'&op=tuikuan&id='+id;
+        var cfm = weui.confirm('确定退款吗?',function(){
+            $.get(url).then(function(res){
+                //console.log(res);
+                res = JSON.parse(res);
+                cfm.hide(function(){
+                    weui.alert(res.message,function(){
+                        location.reload();
+                    });
+                })
+            });
+            return false;
+        })
+    })
+</script>
+{template 'common/footer'}

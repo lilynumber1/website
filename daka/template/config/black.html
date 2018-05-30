@@ -1,0 +1,45 @@
+<form id="form" class="form-horizontal" >
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">openid黑名单</label>
+            <div class="col-sm-6 col-md-8 col-lg-8 col-xs-12">
+                <!-- <input value="{php echo $config['blacklist'];}" type="text" name="blacklist" class="form-control" placeholder="openid黑名单"> -->
+                <textarea type="text" name="blacklist" class="form-control" placeholder="openid黑名单">{$config['blacklist']}</textarea>
+                <span class="help-text">
+                   openid用,隔开
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">黑名单重定向</label>
+                <div class="col-sm-6 col-md-8 col-lg-8 col-xs-12">
+                    <input value="{php echo $config['blackurl'];}" type="text" name="blackurl" class="form-control" placeholder="黑名单重定向">
+                    <span class="help-text">
+                       黑名单用户重定向链接
+                    </span>
+                </div>
+            </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                <a type="button" onclick="submit()" class="btn btn-primary">提交</a>
+            </div>
+        </div>
+    </form>
+    
+    <script>
+        function submit() {
+            var data = $('#form').serialize();
+            $.ajax({
+                url: window.location.href,
+                data: data,
+                type: 'post',
+                dataType: 'json',
+            }).then(function (res) {
+                if (res.ret == 0) {
+                    util.message('修改成功');
+                } else {
+                    util.message(res.message, '', 'error');
+                }
+            });
+        }
+    </script>
