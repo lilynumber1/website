@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>领取兑换码</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="email=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="apple-touch-icon-precomposed" href="./img/zero/icon-spirit1.alpha.png">
+    <link rel='stylesheet' href='./style/webapp-invite-login-css.css'>
+    <style type="text/css">
+        li{
+            list-style:none;
+        }
+    </style>
+</head>
+<body>
+<noscript>Your browser does not support JavaScript!</noscript>
+<script type="text/javascript">
+    function getCDK() {
+        if(isGet){
+            alert("已经领取到了兑换码，不能重复领取！");
+            return;
+        }
+        var ele2 = document.getElementById("qudao");
+        var qudao = ele2.innerText;
+
+        var path = "http://lilynumber1.com/welfare/getCDK.php?";
+        var form = document.createElement("form");
+        form.action = path;
+        form.method = "GET";
+
+        input2 = document.createElement("input");
+        input2.type = "hidden";
+        input2.name = "qudao";
+        input2.value = qudao;
+
+        // append key-value to form
+        form.appendChild(input2);
+
+        // send post request
+        document.body.appendChild(form);
+        form.submit();
+
+        // remove form from document
+        document.body.removeChild(form);
+    }
+
+    var isGet = false;
+    window.onload = function (ev) {
+        var ele = document.getElementById("canAlert");
+        var can = ele.innerText;
+
+        var codeREle = document.getElementById("codeRow");
+        codeREle.style.display = "none";
+
+        var codeEle = document.getElementById("cdk");
+        var code = codeEle.value;
+
+        if(can == "1"){
+            if(code.indexOf("系统错误") == -1){
+                alert("您的兑换码是："+code);
+                isGet = true;
+                codeREle.style.display = "block";
+                codeEle.value = "兑换码："+code;
+            }else{
+                alert(code);
+            }
+        }
+    }
+</script>
+<div class="ivt-wrap ivt13414 ">
+    <section class="login-hd color-red J-login-content">
+        <img class="w100" src="./img/weizhongImg.jpeg" alt="微众金" />
+    </section>
+    <section class="ivt-bd J-login-content" >
+        <div class="fui-form">
+
+            <div class="fui-form-text">
+                <input type="button" class="fui-btn fui-btn-full fui-btn-l fui-btn-green btn-next J-btn-next" value="领取兑换码" onclick="getCDK()">
+            </div>
+            <div class="fui-form-row" id="codeRow" style="display: none">
+                <div class="fui-form-item">
+                    <!--<div class="fui-form-label">-->
+                        <!--<i class="icon icon-redeem"></i>-->
+                    <!--</div>-->
+                    <input type="text" placeholder={$placeTxt} class="fui-input border-bottom J-redeem-num" id="cdk" value={$placeTxt}>
+                </div>
+            </div>
+            <div>
+                <p>
+                    <b>微众金活动流程：</b><br>
+                <hr />
+                <li>1、用户领取微众金兑换码（一人一码）</li>
+                <li>2、用户下载微众银行APP，并且激活兑换码（仅限新用户参与，即首次下载微众银行APP的用户）</li>
+                <li><b>3、微众金兑换流程：</b>
+                <li>兑换方式一：获得兑换码后下载微众银行App完成开户，登录后在App首页点击头像进入“我的”菜单，再点击“卡券”，在“我的卡券”页右上角点击“兑换福利”，即可兑换福利码。兑换成功后福利卡发放到“我的卡券”。</li>
+                <li>兑换方式二：完成开户后在App首页点击“头像”，在侧边栏找到“福利中心”，在福利中心页面右上角点击“兑换福利”，即可兑换福利码。兑换成功后福利卡发放到“我的福利”。（因下载App的渠道等原因，下载的App版本可能不同，对应的兑换方式也不一样，但不影响兑换结果。）
+                    点击兑换的福利卡，进入福利详情页面，在福利详情页点击“领取”按钮，并按指引完成操作，微众金将在两个工作日内发放到你的微众银行App账户。</li>
+                </li>
+                <li>4、微众金可以在交易时间内进行卖出（交易时间为：交易时间是工作日上午9点到晚上11点）</li>
+                </p>
+            </div>
+        </div>
+    </section>
+    <div style="display: none" id="qudao">{$qudaoName}</div>
+    <div style="display: none" id="canAlert">{$canAlert}</div>
+</div>
+</body>
+</html>
