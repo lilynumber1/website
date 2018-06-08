@@ -18,6 +18,14 @@ if($_GET["action"]){
         $smarty->assign("qudaoName",$qudao2);
         $smarty->assign("placeTxt", "兑换码");
         $smarty->display("registerByCDK.html");
+    }else if($_GET["action"] == "getcode"){
+        if($_GET["param"]){
+            $qudao3 = $_GET["param"] . "";
+        }
+        $smarty->assign("canAlert","0");
+        $smarty->assign("qudaoName",$qudao3);
+        $smarty->assign("placeTxt", "请点击'立即领取'");
+        $smarty->display("getCode.html");
     }
 }else{
     $smarty->assign("link4", "http://ah.189.cn/iphone/ext/lmwkfanliwap/index.html?DevCode=AH00F90005/Y34000099437/001");
