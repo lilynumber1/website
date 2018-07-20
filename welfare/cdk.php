@@ -10,8 +10,8 @@ if($_GET["cdk"]){
             header("Location: http://m.51nafuli.com/col.jsp?id=116");
         }else if($from == "huazhu"){
             header("Location: http://m.51nafuli.com/col.jsp?id=121");
-        }else if($from == "txxw"){
-            header("Location: http://m.51nafuli.com/xiangji360.html");
+        }else if($from == "bd"){
+            header("Location: http://m.51nafuli.com/col.jsp?id=132");//百度
         }else if($from == "360"){
             header("Location: http://m.51nafuli.com/col.jsp?id=130");
         }
